@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <title>Cálculo do banco capacitivo para bobina de disjuntor</title>
+  </head>
+  
+  <body>
+    <h2>Cálculo do banco capacitivo para bobina de disjuntor</h2>
+    <img src="bobina.jpg" id="status">
+    <form name="frmDisjuntor">
+      <h3>Entre com os seguintes dados:</h3>
+      Tensão da bobina: <input type="text" size="8" name="txtTensao">[V]</br>
+      Tensão da bobina após o pulso: <input type="text" size="8" name="txtPulso">[V]</br>
+      Resistência da bobina: <input type="text" size="15" name="txtResistencia">[ohms]</br>
+      Duração do pulso: <input type="text" size="15" name="txtTempo">[ms]</br></br>
+      <input type="button" value="Calcula" onclick="apresentarDado()"></br></br>
+	 
+	<p id="capacitancia"></p>
+
+    <script>
+	apresentarDado = function(){
+	
+		var V, Vc, Rb, t; //tipo string
+	
+		V=parseFloat(frmDisjuntor.txtTensao.value.replace(",",".")); //troca ","" por ".
+		Vc=parseFloat(frmDisjuntor.txtPulso.value.replace(",","."));
+		Rb=parseFloat(frmDisjuntor.txtResistencia.value.replace(",","."));
+		t=parseFloat(frmDisjuntor.txtTempo.value.replace(",","."));
+
+		t=t/1000;
+
+		C=-(t/(Rb*Math.log(Vc/V)));
+		C=C*Math.pow(10,6);
+	
+		document.getElementById("capacitancia").innerHTML = "<b>- Capacitância >= "+ (C).toFixed(2)+" [uF]</b>";
+	}      	
+    </script>
+
+    </form>
+  </body>
+</html>
